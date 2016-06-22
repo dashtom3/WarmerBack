@@ -1,9 +1,9 @@
-package com.my.spring.serviceImpl;
+package com.warmlight.serviceImpl;
 
-import com.my.spring.enums.ErrorCodeEnum;
-import com.my.spring.service.FileService;
-import com.my.spring.utils.DataWrapper;
-import com.my.spring.utils.MD5Util;
+import com.warmlight.enums.ErrorCodeEnum;
+import com.warmlight.service.FileService;
+import com.warmlight.utils.DataWrapper;
+import com.warmlight.utils.MD5Util;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,7 +18,7 @@ import java.util.UUID;
  * Created by Administrator on 2016/6/22.
  */
 @Service("fileService")
-public class FileServiceImpl implements FileService{
+public class FileServiceImpl implements FileService {
     @Override
     public DataWrapper<Void> uploadFile(HttpServletRequest request, MultipartFile file) {
         DataWrapper<Void> retDataWrapper = new DataWrapper<Void>();

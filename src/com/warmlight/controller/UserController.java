@@ -1,12 +1,14 @@
-package com.my.spring.controller;
+package com.warmlight.controller;
 
-import com.my.spring.model.UserEntity;
-import com.my.spring.service.UserService;
-import com.my.spring.utils.DataWrapper;
+import com.warmlight.model.UserEntity;
+import com.warmlight.service.UserService;
+import com.warmlight.utils.DataWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -17,13 +19,16 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
-    @RequestMapping(value="addUser", method = RequestMethod.POST)
+    //finished
+    @RequestMapping(value="register", method = RequestMethod.POST)
     @ResponseBody
-    public DataWrapper<Void> addUser(
+    public DataWrapper<Void> register(
             @ModelAttribute UserEntity user,
-            @RequestParam(value = "token",required = false) String token){
-        return userService.addUser(user);
+            @RequestParam(value = "image", required = false) MultipartFile image,
+            HttpServletRequest request){
+        return userService.addUser(user,image,request);
     }
+
     @RequestMapping(value="deleteUser")
     @ResponseBody
     public DataWrapper<Void> deleteUser(
@@ -36,6 +41,7 @@ public class UserController {
     @ResponseBody
     public DataWrapper<Void> updateUser(
             @ModelAttribute UserEntity user,
+            @RequestParam(value = "image", required = false) MultipartFile image,
             @RequestParam(value = "token",required = false) String token){
         System.out.println(user);
         return userService.updateUser(user);

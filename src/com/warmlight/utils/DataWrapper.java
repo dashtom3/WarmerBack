@@ -1,8 +1,8 @@
-package com.my.spring.utils;
+package com.warmlight.utils;
 
 
-import com.my.spring.enums.CallStatusEnum;
-import com.my.spring.enums.ErrorCodeEnum;
+import com.warmlight.enums.CallStatusEnum;
+import com.warmlight.enums.ErrorCodeEnum;
 
 public class DataWrapper<T>  {
     private CallStatusEnum callStatus;

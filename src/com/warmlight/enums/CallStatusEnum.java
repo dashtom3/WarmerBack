@@ -1,4 +1,4 @@
-package com.my.spring.enums;
+package com.warmlight.enums;
 
 import java.io.Serializable;
 

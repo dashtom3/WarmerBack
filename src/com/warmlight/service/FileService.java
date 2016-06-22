@@ -1,6 +1,6 @@
-package com.my.spring.service;
+package com.warmlight.service;
 
-import com.my.spring.utils.DataWrapper;
+import com.warmlight.utils.DataWrapper;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;

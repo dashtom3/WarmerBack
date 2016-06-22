@@ -20,19 +20,24 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hiberante.format_sql">true</prop>
                 <prop key="hiberante.connection.autocommit">true</prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/springmvc</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/warmlight</prop>
             </props>
         </property>
         <property name="annotatedClasses">
             <list>
-                <value>com.my.spring.model.UserEntity</value>
+                <value>com.warmlight.model.CommentEntity</value>
+                <value>com.warmlight.model.FileEntity</value>
+                <value>com.warmlight.model.NewsEntity</value>
+                <value>com.warmlight.model.TokenEntity</value>
+                <value>com.warmlight.model.UserEntity</value>
+                <value>com.warmlight.model.VoteEntity</value>
             </list>
         </property>
     </bean>
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/springmvc?characterEncoding=utf-8" />
+        <property name="url" value="jdbc:mysql://localhost:3306/warmlight?characterEncoding=utf-8" />
         <property name="username" value="root" />
         <property name="password" value="" />
     </bean>

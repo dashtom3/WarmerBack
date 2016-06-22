@@ -1,4 +1,4 @@
-package com.my.spring.DAO;
+package com.warmlight.DAO;
 
 import org.hibernate.Query;
 import org.hibernate.Session;

@@ -1,4 +1,4 @@
-package com.my.spring.utils;
+package com.warmlight.utils;
 
 import java.security.MessageDigest;
 

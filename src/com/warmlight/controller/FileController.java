@@ -1,7 +1,7 @@
-package com.my.spring.controller;
+package com.warmlight.controller;
 
-import com.my.spring.service.FileService;
-import com.my.spring.utils.DataWrapper;
+import com.warmlight.service.FileService;
+import com.warmlight.utils.DataWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.my.spring.enums;
+package com.warmlight.enums;
 
 import java.io.Serializable;
 
@@ -9,6 +9,8 @@ public enum ErrorCodeEnum implements Serializable {
 
     No_Error("No ERROE!", 0),
     Error("Unknown error!", 1),
+    USER_EXISTED("User Existed",2),
+    CHARACTER_ERROR("Character Error",3),
     ;
 
     private String label;

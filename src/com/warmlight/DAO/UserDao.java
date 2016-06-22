@@ -1,7 +1,7 @@
-package com.my.spring.DAO;
+package com.warmlight.DAO;
 
-import com.my.spring.model.UserEntity;
-import com.my.spring.utils.DataWrapper;
+import com.warmlight.model.UserEntity;
+import com.warmlight.utils.DataWrapper;
 
 import java.util.List;
 
@@ -12,5 +12,6 @@ public interface UserDao {
     boolean addUser(UserEntity user);
     boolean deleteUser(Long id);
     boolean updateUser(UserEntity user);
+    UserEntity getUserByUserName(String userName);
     DataWrapper<List<UserEntity>> getUserList();
 }

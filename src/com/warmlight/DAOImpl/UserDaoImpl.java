@@ -1,11 +1,12 @@
-package com.my.spring.DAOImpl;
+package com.warmlight.DAOImpl;
 
-import com.my.spring.DAO.BaseDao;
-import com.my.spring.DAO.UserDao;
-import com.my.spring.model.UserEntity;
-import com.my.spring.utils.DataWrapper;
+import com.warmlight.DAO.BaseDao;
+import com.warmlight.DAO.UserDao;
+import com.warmlight.model.UserEntity;
+import com.warmlight.utils.DataWrapper;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -30,6 +31,21 @@ public class UserDaoImpl extends BaseDao<UserEntity> implements UserDao {
     @Override
     public boolean updateUser(UserEntity user) {
         return update(user);
+    }
+
+    @Override
+    public UserEntity getUserByUserName(String userName) {
+        List<UserEntity> ret;
+        Session session = getSession();
+        Criteria criteria = session.createCriteria(UserEntity.class);
+        criteria.add(Restrictions.eq("userName",userName));
+
+        ret = criteria.list();
+        if(ret != null && ret.size() > 0) {
+            return  ret.get(0);
+        }
+
+        return null;
     }
 
     @Override
