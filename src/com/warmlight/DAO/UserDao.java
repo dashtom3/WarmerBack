@@ -13,5 +13,5 @@ public interface UserDao {
     boolean deleteUser(Long id);
     boolean updateUser(UserEntity user);
     UserEntity getUserByUserName(String userName);
-    DataWrapper<List<UserEntity>> getUserList();
+    UserEntity getUserById(Long id);
 }

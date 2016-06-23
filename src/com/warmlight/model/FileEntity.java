@@ -14,6 +14,7 @@ public class FileEntity {
     private Integer backgroundNo;
     private Long newsId;
 
+
     @Id
     @GeneratedValue
     @Column(name = "id")

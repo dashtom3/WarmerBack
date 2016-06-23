@@ -32,4 +32,15 @@ public class FileUtil {
         }
         return true;
     }
+
+    public static boolean deleteFile(String filePath) {
+        File file = new File(filePath);
+        try {
+            file.delete();
+        }catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

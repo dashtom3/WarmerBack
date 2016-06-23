@@ -1,7 +1,9 @@
 package com.warmlight.model;
 
 import javax.persistence.*;
+import java.io.File;
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/6/22.
@@ -13,6 +15,17 @@ public class NewsEntity {
     private Long userId;
     private String content;
     private Date publishDate;
+
+    private List<FileEntity> files;
+
+    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="newsId")
+    public List<FileEntity> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<FileEntity> files) {
+        this.files = files;
+    }
 
     @Id
     @GeneratedValue

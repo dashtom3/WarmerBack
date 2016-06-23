@@ -12,7 +12,8 @@ import java.util.List;
  */
 public interface UserService {
     DataWrapper<Void> addUser(UserEntity user,MultipartFile image,HttpServletRequest request);
-    DataWrapper<Void> deleteUser(Long id);
-    DataWrapper<Void> updateUser(UserEntity user);
-    DataWrapper<List<UserEntity>> getUserList();
+    DataWrapper<UserEntity> login(String userName,String password);
+    DataWrapper<Void> deleteUser(String token,HttpServletRequest request);
+    DataWrapper<UserEntity> updateUser(UserEntity user,MultipartFile image,String token,HttpServletRequest request);
+    DataWrapper<Void> logout(String token);
 }

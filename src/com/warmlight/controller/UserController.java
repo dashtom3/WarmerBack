@@ -19,7 +19,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
-    //finished
+    //用户注册
+    //finished tested
     @RequestMapping(value="register", method = RequestMethod.POST)
     @ResponseBody
     public DataWrapper<Void> register(
@@ -29,29 +30,46 @@ public class UserController {
         return userService.addUser(user,image,request);
     }
 
+    //用户登录
+    //finished tested
+    @RequestMapping(value="login")
+    @ResponseBody
+    public DataWrapper<UserEntity> login(
+            @RequestParam(value = "userName",required = true) String userName,
+            @RequestParam(value = "password",required = true) String password){
+        return userService.login(userName,password);
+    }
+
+    //用户登出
+    //finished tested
+    @RequestMapping(value="logout")
+    @ResponseBody
+    public DataWrapper<Void> logout(
+            @RequestParam(value = "token",required = true) String token){
+        return userService.logout(token);
+    }
+
+    //用户注销
+    //finished tested
     @RequestMapping(value="deleteUser")
     @ResponseBody
     public DataWrapper<Void> deleteUser(
-            @RequestParam(value = "id",required = false) Long id,
-            @RequestParam(value = "token",required = false) String token){
-        return userService.deleteUser(id);
+            @RequestParam(value = "token",required = false) String token,
+            HttpServletRequest request){
+        return userService.deleteUser(token,request);
     }
 
+    //更新用户信息
+    //finished tested
     @RequestMapping(value="updateUser",method = RequestMethod.POST)
     @ResponseBody
-    public DataWrapper<Void> updateUser(
+    public DataWrapper<UserEntity> updateUser(
             @ModelAttribute UserEntity user,
             @RequestParam(value = "image", required = false) MultipartFile image,
-            @RequestParam(value = "token",required = false) String token){
-        System.out.println(user);
-        return userService.updateUser(user);
+            @RequestParam(value = "token",required = false) String token,
+            HttpServletRequest request){
+        return userService.updateUser(user,image,token,request);
     }
 
 
-    @RequestMapping(value="getUserList")
-    @ResponseBody
-    public DataWrapper<List<UserEntity>> getUserList(
-            @RequestParam(value = "token",required = false) String token){
-        return userService.getUserList();
-    }
 }

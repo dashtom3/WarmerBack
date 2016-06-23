@@ -11,6 +11,8 @@ public enum ErrorCodeEnum implements Serializable {
     Error("Unknown error!", 1),
     USER_EXISTED("User Existed",2),
     CHARACTER_ERROR("Character Error",3),
+    USER_NOT_EXIST("User Not Exist",4),
+    PASSWORD_ERROR("Password Error",5),
     ;
 
     private String label;

@@ -49,18 +49,8 @@ public class UserDaoImpl extends BaseDao<UserEntity> implements UserDao {
     }
 
     @Override
-    public DataWrapper<List<UserEntity>> getUserList() {
-        DataWrapper<List<UserEntity>> retDataWrapper = new DataWrapper<List<UserEntity>>();
-        List<UserEntity> ret = new ArrayList<UserEntity>();
-        Session session = getSession();
-        Criteria criteria = session.createCriteria(UserEntity.class);
-//        criteria.addOrder(Order.desc("publishDate"));
-        try {
-            ret = criteria.list();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        retDataWrapper.setData(ret);
-        return retDataWrapper;
+    public UserEntity getUserById(Long id) {
+        return get(id);
     }
+
 }
