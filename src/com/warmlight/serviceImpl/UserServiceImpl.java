@@ -117,11 +117,14 @@ public class UserServiceImpl implements UserService {
         TokenEntity tokenEntity = tokenDao.getByTokenString(token);
         if(tokenEntity != null) {
             UserEntity user = userDao.getUserById(tokenEntity.getUserId());
-            if(!tokenDao.deleteToken(tokenEntity) || !userDao.deleteUser(tokenEntity.getUserId())) {
+            if(!tokenDao.deleteToken(tokenEntity.getId()) || !userDao.deleteUser(tokenEntity.getUserId())) {
                 dataWrapper.setErrorCode(ErrorCodeEnum.Error);
             } else {
                 String filePath = request.getSession().getServletContext().getRealPath("/");
                 FileUtil.deleteFile(filePath + user.getUserImg());
+                FileUtil.deleteDir(new File(filePath + "upload/photos/" + user.getId()));
+                FileUtil.deleteDir(new File(filePath + "upload/video/" + user.getId()));
+                FileUtil.deleteDir(new File(filePath + "upload/radio/" + user.getId()));
             }
         } else {
             dataWrapper.setErrorCode(ErrorCodeEnum.Error);
@@ -193,7 +196,7 @@ public class UserServiceImpl implements UserService {
         DataWrapper<Void> dataWrapper = new DataWrapper<Void>();
         TokenEntity tokenEntity = tokenDao.getByTokenString(token);
         if(tokenEntity != null) {
-            if(!tokenDao.deleteToken(tokenEntity)) {
+            if(!tokenDao.deleteToken(tokenEntity.getId())) {
                 dataWrapper.setErrorCode(ErrorCodeEnum.Error);
             }
         } else {

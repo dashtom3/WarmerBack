@@ -26,10 +26,6 @@ public class TokenDaoImpl extends BaseDao<TokenEntity> implements TokenDao {
         return delete(get(id));
     }
 
-    @Override
-    public boolean deleteToken(TokenEntity token) {
-        return delete(token);
-    }
 
     @Override
     public TokenEntity getByUserId(Long userId) {

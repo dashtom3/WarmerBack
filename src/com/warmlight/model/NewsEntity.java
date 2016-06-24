@@ -1,5 +1,11 @@
 package com.warmlight.model;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.RowId;
+import org.hibernate.annotations.Where;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
 import java.io.File;
 import java.sql.Date;
@@ -15,16 +21,53 @@ public class NewsEntity {
     private Long userId;
     private String content;
     private Date publishDate;
+    private Long votedAmount;
 
     private List<FileEntity> files;
 
-    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="newsId")
+    private List<CommentEntity> comments;
+
+
+    private UserView author;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    public UserView getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UserView author) {
+        this.author = author;
+    }
+
+
+    @OneToMany(cascade = CascadeType.REFRESH,fetch=FetchType.LAZY, mappedBy="newsId")
+    @Where(clause = "id = (select my_comment.id from t_comment my_comment where my_comment.news_id = news_id order by my_comment.publish_date desc limit 1)")
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
+    }
+
+    @OneToMany(cascade = CascadeType.REFRESH,fetch=FetchType.LAZY,mappedBy="newsId")
     public List<FileEntity> getFiles() {
         return files;
     }
 
     public void setFiles(List<FileEntity> files) {
         this.files = files;
+    }
+
+    @Basic
+    @Column(name = "voted_amount")
+    public Long getVotedAmount() {
+        return votedAmount;
+    }
+
+    public void setVotedAmount(Long votedAmount) {
+        this.votedAmount = votedAmount;
     }
 
     @Id

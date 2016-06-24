@@ -1,8 +1,8 @@
 package com.warmlight.DAOImpl;
 
 import com.warmlight.DAO.BaseDao;
-import com.warmlight.DAO.NewsDao;
-import com.warmlight.model.NewsEntity;
+import com.warmlight.DAO.CommentDao;
+import com.warmlight.model.CommentEntity;
 import com.warmlight.utils.DaoUtil;
 import com.warmlight.utils.DataWrapper;
 import org.hibernate.Criteria;
@@ -16,33 +16,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/6/23.
+ * Created by Administrator on 2016/6/24.
  */
 @Repository
-public class NewsDaoImpl extends BaseDao<NewsEntity> implements NewsDao {
+public class CommentDaoImpl extends BaseDao<CommentEntity> implements CommentDao {
     @Override
-    public boolean saveNews(NewsEntity news) {
-        return save(news);
+    public boolean saveComment(CommentEntity comment) {
+        return save(comment);
     }
 
     @Override
-    public boolean deleteNews(Long id) {
+    public boolean deleteComment(Long id) {
         return delete(get(id));
     }
 
     @Override
-    public NewsEntity getNewsById(Long id) {
-        return get(id);
-    }
-
-    @Override
-    public DataWrapper<List<NewsEntity>> getNewsList(Integer pageSize, Integer pageIndex) {
-        DataWrapper<List<NewsEntity>> dataWrapper = new DataWrapper<List<NewsEntity>>();
-        List<NewsEntity> ret = new ArrayList<NewsEntity>();
+    public DataWrapper<List<CommentEntity>> getCommentListByNews(Long newsId, Integer pageSize, Integer pageIndex) {
+        DataWrapper<List<CommentEntity>> dataWrapper = new DataWrapper<List<CommentEntity>>();
+        List<CommentEntity> ret = new ArrayList<CommentEntity>();
         Session session = getSession();
-        Criteria criteria = session.createCriteria(NewsEntity.class);
+        Criteria criteria = session.createCriteria(CommentEntity.class);
 
+        criteria.add(Restrictions.eq("newsId", newsId));
         criteria.addOrder(Order.desc("publishDate"));
+
+
         // 取总页数
         criteria.setProjection(Projections.rowCount());
         int totalItemNum = ((Long)criteria.uniqueResult()).intValue();
@@ -57,7 +55,7 @@ public class NewsDaoImpl extends BaseDao<NewsEntity> implements NewsDao {
         try {
             ret = criteria.list();
         }catch (Exception e){
-            e.printStackTrace();
+            System.out.println(e);
         }
         dataWrapper.setData(ret);
         dataWrapper.setTotalNumber(totalItemNum);
@@ -66,5 +64,10 @@ public class NewsDaoImpl extends BaseDao<NewsEntity> implements NewsDao {
         dataWrapper.setNumberPerPage(pageSize);
 
         return dataWrapper;
+    }
+
+    @Override
+    public CommentEntity getCommentById(Long id) {
+        return get(id);
     }
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Administrator on 2016/6/22.
+ * Created by Administrator on 2016/6/24.
  */
 @Entity
 @Table(name = "t_comment")
@@ -14,7 +14,40 @@ public class CommentEntity {
     private Long userId;
     private Date publishDate;
     private String comment;
-    private Long votedAmount;
+    private Integer type;
+    private String voiceSrc;
+
+    private UserView author;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    public UserView getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(UserView author) {
+        this.author = author;
+    }
+
+    @Basic
+    @Column(name = "type")
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    @Basic
+    @Column(name = "voice_src")
+    public String getVoiceSrc() {
+        return voiceSrc;
+    }
+
+    public void setVoiceSrc(String voiceSrc) {
+        this.voiceSrc = voiceSrc;
+    }
 
     @Id
     @GeneratedValue
@@ -67,16 +100,6 @@ public class CommentEntity {
         this.comment = comment;
     }
 
-    @Basic
-    @Column(name = "voted_amount")
-    public Long getVotedAmount() {
-        return votedAmount;
-    }
-
-    public void setVotedAmount(Long votedAmount) {
-        this.votedAmount = votedAmount;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,7 +112,6 @@ public class CommentEntity {
         if (userId != that.userId) return false;
         if (comment != null ? !comment.equals(that.comment) : that.comment != null) return false;
         if (publishDate != null ? !publishDate.equals(that.publishDate) : that.publishDate != null) return false;
-        if (votedAmount != null ? !votedAmount.equals(that.votedAmount) : that.votedAmount != null) return false;
 
         return true;
     }
@@ -101,7 +123,6 @@ public class CommentEntity {
         result = 31 * result + (int) (userId ^ (userId >>> 32));
         result = 31 * result + (publishDate != null ? publishDate.hashCode() : 0);
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        result = 31 * result + (votedAmount != null ? votedAmount.hashCode() : 0);
         return result;
     }
 }

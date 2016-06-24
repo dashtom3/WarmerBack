@@ -8,7 +8,6 @@ import com.warmlight.model.TokenEntity;
 public interface TokenDao {
     boolean addToken(TokenEntity token);
     boolean deleteToken(Long id);
-    boolean deleteToken(TokenEntity token);
     TokenEntity getByUserId(Long userId);
     TokenEntity getByTokenString(String tokenString);
     boolean updateToken(TokenEntity token);

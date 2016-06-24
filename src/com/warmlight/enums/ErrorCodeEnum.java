@@ -9,10 +9,13 @@ public enum ErrorCodeEnum implements Serializable {
 
     No_Error("No ERROE!", 0),
     Error("Unknown error!", 1),
-    USER_EXISTED("User Existed",2),
-    CHARACTER_ERROR("Character Error",3),
-    USER_NOT_EXIST("User Not Exist",4),
-    PASSWORD_ERROR("Password Error",5),
+    USER_EXISTED("User Existed!",2),
+    CHARACTER_ERROR("Character Error!",3),
+    USER_NOT_EXIST("User Not Exist!",4),
+    PASSWORD_ERROR("Password Error!",5),
+    FILE_EMPTY("File Empty!",6),
+    VOTE_ERROR("You Have Voted!",7),
+    AUTH_ERROR("Auth Error!",8),
     ;
 
     private String label;
