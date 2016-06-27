@@ -17,6 +17,18 @@ public class UserEntity {
     private String realName;
     private Date registerDate;
 
+    private String backgroundImg;
+
+    @Basic
+    @Column(name = "background_img")
+    public String getBackgroundImg() {
+        return backgroundImg;
+    }
+
+    public void setBackgroundImg(String backgroundImg) {
+        this.backgroundImg = backgroundImg;
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "id")

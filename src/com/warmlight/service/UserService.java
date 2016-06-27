@@ -14,6 +14,8 @@ public interface UserService {
     DataWrapper<Void> addUser(UserEntity user,MultipartFile image,HttpServletRequest request);
     DataWrapper<UserEntity> login(String userName,String password);
     DataWrapper<Void> deleteUser(String token,HttpServletRequest request);
-    DataWrapper<UserEntity> updateUser(UserEntity user,MultipartFile image,String token,HttpServletRequest request);
+    DataWrapper<UserEntity> updateUser(UserEntity user,MultipartFile image,MultipartFile background,String token,HttpServletRequest request);
     DataWrapper<Void> logout(String token);
+
+    DataWrapper<UserEntity> getUserDetails(Long userId,String token);
 }

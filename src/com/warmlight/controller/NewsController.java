@@ -46,10 +46,11 @@ public class NewsController {
     @RequestMapping(value="getNewsList")
     @ResponseBody
     public  DataWrapper<List<NewsEntity>> getNewsList(
+            @RequestParam(value = "userId", required = false) Long userId,
             @RequestParam(value = "pageSize", required = true) Integer pageSize,
             @RequestParam(value = "pageIndex", required = true) Integer pageIndex,
             @RequestParam(value = "token", required = true) String token){
-        return newsService.getNewsList(pageSize,pageIndex,token);
+        return newsService.getNewsList(userId,pageSize,pageIndex,token);
     }
 
     //删除新闻

@@ -66,10 +66,20 @@ public class UserController {
     public DataWrapper<UserEntity> updateUser(
             @ModelAttribute UserEntity user,
             @RequestParam(value = "image", required = false) MultipartFile image,
-            @RequestParam(value = "token",required = false) String token,
+            @RequestParam(value = "background", required = false) MultipartFile background,
+            @RequestParam(value = "token",required = true) String token,
             HttpServletRequest request){
-        return userService.updateUser(user,image,token,request);
+        return userService.updateUser(user,image,background,token,request);
     }
 
+    //获取用户详细信息
+    @RequestMapping(value="getUserDetails")
+    @ResponseBody
+    public DataWrapper<UserEntity> getUserDetails(
+            @RequestParam(value = "userId", required = true) Long userId,
+            @RequestParam(value = "token",required = true) String token
+            ){
+        return userService.getUserDetails(userId, token);
+    }
 
 }

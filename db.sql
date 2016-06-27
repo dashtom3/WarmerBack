@@ -58,6 +58,8 @@ foreign key(user_id) references t_user(id) ON DELETE CASCADE
 
 alter table t_news add column voted_amount bigint;
 
+alter table t_user add column background_img varchar(300);
+
 alter table t_comment add column type int;
 alter table t_comment add column voice_src varchar(300);
 

@@ -36,11 +36,15 @@ public class NewsDaoImpl extends BaseDao<NewsEntity> implements NewsDao {
     }
 
     @Override
-    public DataWrapper<List<NewsEntity>> getNewsList(Integer pageSize, Integer pageIndex) {
+    public DataWrapper<List<NewsEntity>> getNewsList(Long userId,Integer pageSize, Integer pageIndex) {
         DataWrapper<List<NewsEntity>> dataWrapper = new DataWrapper<List<NewsEntity>>();
         List<NewsEntity> ret = new ArrayList<NewsEntity>();
         Session session = getSession();
         Criteria criteria = session.createCriteria(NewsEntity.class);
+
+        if (userId != null) {
+            criteria.add(Restrictions.eq("userId",userId));
+        }
 
         criteria.addOrder(Order.desc("publishDate"));
         // 取总页数

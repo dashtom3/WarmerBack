@@ -12,5 +12,5 @@ public interface NewsDao {
     boolean saveNews(NewsEntity news);
     boolean deleteNews(Long id);
     NewsEntity getNewsById(Long id);
-    DataWrapper<List<NewsEntity>> getNewsList(Integer pageSize,Integer pageIndex);
+    DataWrapper<List<NewsEntity>> getNewsList(Long userId,Integer pageSize,Integer pageIndex);
 }

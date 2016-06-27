@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface NewsService {
     DataWrapper<Void> publishNews(NewsEntity news,Integer type,Integer backgroundNo,MultipartFile[] file,String token,HttpServletRequest request);
-    DataWrapper<List<NewsEntity>> getNewsList(Integer pageSize,Integer pageIndex,String token);
+    DataWrapper<List<NewsEntity>> getNewsList(Long userId,Integer pageSize,Integer pageIndex,String token);
     DataWrapper<Void> deleteNews(Long newsId,String token,HttpServletRequest request);
     DataWrapper<Void> addVotedAmount(Long newsId,String token);
     DataWrapper<Void> deleteVotedAmount(Long newsId,String token);

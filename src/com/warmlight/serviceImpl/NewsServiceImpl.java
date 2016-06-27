@@ -124,11 +124,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public DataWrapper<List<NewsEntity>> getNewsList(Integer pageSize,Integer pageIndex,String token) {
+    public DataWrapper<List<NewsEntity>> getNewsList(Long userId,Integer pageSize,Integer pageIndex,String token) {
         DataWrapper<List<NewsEntity>> dataWrapper = new DataWrapper<List<NewsEntity>>();
         TokenEntity tokenEntity = tokenDao.getByTokenString(token);
         if (tokenEntity != null) {
-            dataWrapper = newsDao.getNewsList(pageSize,pageIndex);
+            dataWrapper = newsDao.getNewsList(userId,pageSize,pageIndex);
         } else {
             dataWrapper.setErrorCode(ErrorCodeEnum.Error);
         }

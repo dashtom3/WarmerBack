@@ -122,6 +122,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 String filePath = request.getSession().getServletContext().getRealPath("/");
                 FileUtil.deleteFile(filePath + user.getUserImg());
+                FileUtil.deleteFile(filePath + user.getBackgroundImg());
                 FileUtil.deleteDir(new File(filePath + "upload/photos/" + user.getId()));
                 FileUtil.deleteDir(new File(filePath + "upload/video/" + user.getId()));
                 FileUtil.deleteDir(new File(filePath + "upload/radio/" + user.getId()));
@@ -133,7 +134,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public DataWrapper<UserEntity> updateUser(UserEntity user,MultipartFile image,String token,HttpServletRequest request) {
+    public DataWrapper<UserEntity> updateUser(UserEntity user,MultipartFile image,MultipartFile background,String token,HttpServletRequest request) {
         DataWrapper<UserEntity> dataWrapper = new DataWrapper<UserEntity>();
         TokenEntity tokenEntity = tokenDao.getByTokenString(token);
         if(tokenEntity != null) {
@@ -153,6 +154,24 @@ public class UserServiceImpl implements UserService {
                     userToUpdate.setUserImg("user_photo/" + newFileName);
                 } else {
                     userToUpdate.setUserImg(null);
+                }
+            }
+
+            if (background != null) {
+                String filePath = request.getSession().getServletContext().getRealPath("/");
+                //删除之前的照片
+                if (userToUpdate.getBackgroundImg() != null) {
+                    FileUtil.deleteFile(filePath + userToUpdate.getBackgroundImg());
+                }
+
+                //保存新上传的照片
+                String newFileName = MD5Util.getMD5String(background.getOriginalFilename() + new Date() + UUID.randomUUID().toString()).replace(".","")
+                        + background.getOriginalFilename().substring(background.getOriginalFilename().lastIndexOf("."));
+                boolean flag = FileUtil.saveFile(filePath + "user_background",newFileName,background);
+                if(flag) {
+                    userToUpdate.setBackgroundImg("user_background/" + newFileName);
+                } else {
+                    userToUpdate.setBackgroundImg(null);
                 }
             }
 
@@ -199,6 +218,22 @@ public class UserServiceImpl implements UserService {
             if(!tokenDao.deleteToken(tokenEntity.getId())) {
                 dataWrapper.setErrorCode(ErrorCodeEnum.Error);
             }
+        } else {
+            dataWrapper.setErrorCode(ErrorCodeEnum.Error);
+        }
+        return dataWrapper;
+    }
+
+    @Override
+    public DataWrapper<UserEntity> getUserDetails(Long userId, String token) {
+        DataWrapper<UserEntity> dataWrapper = new DataWrapper<UserEntity>();
+        TokenEntity tokenEntity = tokenDao.getByTokenString(token);
+        if(tokenEntity != null) {
+            UserEntity userEntity = userDao.getUserById(userId);
+            userEntity.setPassword(null);
+            userEntity.setUserName(null);
+            userEntity.setRegisterDate(null);
+            dataWrapper.setData(userEntity);
         } else {
             dataWrapper.setErrorCode(ErrorCodeEnum.Error);
         }
