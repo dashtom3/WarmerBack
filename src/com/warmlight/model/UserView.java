@@ -15,6 +15,8 @@ public class UserView {
     private String userImg;
     private String realName;
 
+    public UserView() {}
+
     @Id
     @Column(name = "id")
     public Long getId() {

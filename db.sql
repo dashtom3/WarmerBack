@@ -63,9 +63,14 @@ alter table t_user add column background_img varchar(300);
 alter table t_comment add column type int;
 alter table t_comment add column voice_src varchar(300);
 
+alter table t_comment add column to_user_id bigint(20) unsigned;
+
 CREATE TRIGGER `add_voted` AFTER INSERT ON `t_vote`
  FOR EACH ROW update t_news set voted_amount = voted_amount + 1 where t_news.id = new.news_id;
  
  CREATE TRIGGER `delete_vote` AFTER DELETE ON `t_vote`
  FOR EACH ROW update t_news set voted_amount = voted_amount - 1 where t_news.id = old.news_id;
  
+ 
+  CREATE TRIGGER `delete_user` AFTER DELETE ON `t_user`
+ FOR EACH ROW update t_comment set to_user_id = null where t_comment.to_user_id = old.id;

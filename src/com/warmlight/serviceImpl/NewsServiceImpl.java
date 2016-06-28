@@ -34,6 +34,8 @@ public class NewsServiceImpl implements NewsService {
     VoteDao voteDao;
     @Autowired
     CommentDao commentDao;
+    @Autowired
+    UserDao userDao;
 
     @Override
     public DataWrapper<Void> publishNews(NewsEntity news, Integer type, Integer backgroundNo, MultipartFile[] file, String token, HttpServletRequest request) {
@@ -221,6 +223,12 @@ public class NewsServiceImpl implements NewsService {
             commentEntity.setNewsId(newsId);
             commentEntity.setUserId(tokenEntity.getUserId());
             commentEntity.setPublishDate(new Date(System.currentTimeMillis()));
+
+            Long toUserId = commentEntity.getToUserId();
+            if (toUserId != null && userDao.getUserById(toUserId) == null) {
+                commentEntity.setToUserId(null);
+            }
+
             switch (commentEntity.getType()) {
                 case 0:
                     String comment = commentEntity.getComment();

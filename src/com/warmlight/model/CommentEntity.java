@@ -1,5 +1,8 @@
 package com.warmlight.model;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -16,8 +19,23 @@ public class CommentEntity {
     private String comment;
     private Integer type;
     private String voiceSrc;
+    private Long toUserId;
+
 
     private UserView author;
+
+    private UserView toUser;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "to_user_id", insertable = false, updatable = false)
+    public UserView getToUser() {
+        return toUser;
+    }
+
+    public void setToUser(UserView toUser) {
+        this.toUser = toUser;
+    }
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
@@ -27,6 +45,17 @@ public class CommentEntity {
 
     public void setAuthor(UserView author) {
         this.author = author;
+    }
+
+
+    @Basic
+    @Column(name = "to_user_id")
+    public Long getToUserId() {
+        return toUserId;
+    }
+
+    public void setToUserId(Long toUserId) {
+        this.toUserId = toUserId;
     }
 
     @Basic
